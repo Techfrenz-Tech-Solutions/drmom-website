@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
-import { setStoredUser } from "../../utils/auth";
+import { loginUser, registerUser } from "../../utils/auth";
+import { getCatalog } from "../../utils/api";
 import "./Login.css";
 
 const Login = () => {
@@ -10,30 +11,53 @@ const Login = () => {
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [classes, setClasses] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getCatalog()
+      .then((data) => {
+        if (data.classes?.length) {
+          setClasses(data.classes.map((c) => c.label || c.fullLabel));
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    if (mode === "register" && form.password.length < 8) {
+      setError("Password must be at least 8 characters.");
+      return;
+    }
     if (mode === "register" && form.password !== form.confirm) {
       setError("Passwords do not match.");
       return;
     }
     setLoading(true);
-    // TODO: connect to backend auth
-    setTimeout(() => {
+    try {
+      if (mode === "register") {
+        await registerUser({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          password: form.password,
+          gradeLabel: form.class,
+        });
+      } else {
+        await loginUser({
+          email: form.email.trim(),
+          password: form.password,
+        });
+      }
       setLoading(false);
-      const name = mode === "register" && form.name ? form.name.trim() : (form.name || form.email.split("@")[0]).trim();
-      setStoredUser({
-        name: name || "Student",
-        email: form.email.trim(),
-        class: form.class || "",
-      });
-      alert(mode === "login" ? "Login successful! 🎉" : "Account created! Welcome to Dr Mom 2.0 🌟");
       navigate("/");
-    }, 1200);
+    } catch (error) {
+      setLoading(false);
+      setError(error.message || "Authentication failed.");
+    }
   };
 
   return (
@@ -134,7 +158,7 @@ const Login = () => {
                       value={form.class} onChange={handleChange}
                     >
                       <option value="">-- Select Class --</option>
-                      {["LKG", "UKG", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5"].map((c) => (
+                      {classes.map((c) => (
                         <option key={c} value={c}>{c}</option>
                       ))}
                     </select>

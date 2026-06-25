@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
+import { apiRequest } from "../../utils/api";
 import "./Contact.css";
 
 const FAQS = [
@@ -55,14 +56,27 @@ const SOCIAL_LINKS = [
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
   const [openFaq, setOpenFaq] = useState(null);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: connect to backend
-    setSubmitted(true);
+    setSending(true);
+    setSendError("");
+    try {
+      await apiRequest("/contact", {
+        method: "POST",
+        body: JSON.stringify(form),
+      });
+      setSubmitted(true);
+    } catch (err) {
+      setSendError(err.message || "Failed to send message. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -188,8 +202,9 @@ const Contact = () => {
                     value={form.message} onChange={handleChange}
                   />
                 </div>
-                <button type="submit" className="btn btn-primary contact-form__submit">
-                  Send Message ✉️
+                {sendError && <p style={{ color: "var(--error, #f87171)", marginBottom: "0.5rem", fontSize: "0.9rem" }}>{sendError}</p>}
+                <button type="submit" className="btn btn-primary contact-form__submit" disabled={sending}>
+                  {sending ? "Sending..." : "Send Message ✉️"}
                 </button>
               </form>
             )}

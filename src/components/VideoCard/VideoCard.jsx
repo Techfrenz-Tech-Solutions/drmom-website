@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { apiRequest } from "../../utils/api";
 import "./VideoCard.css";
 
 const VideoCard = ({ video, index = 0, onUnlock }) => {
   const [playing, setPlaying] = useState(false);
+  const [playbackUrl, setPlaybackUrl] = useState("");
+  const [error, setError] = useState("");
   const { title, thumbnail, duration, views, rating, isLocked, desc, chapter, videoUrl } = video;
 
   const handleUnlock = (e) => {
@@ -19,6 +22,17 @@ const VideoCard = ({ video, index = 0, onUnlock }) => {
     }
   };
 
+  const handlePlay = async () => {
+    setError("");
+    try {
+      const data = await apiRequest(`/courses/lessons/${video.id}/playback`);
+      setPlaybackUrl(data.playback?.embedUrl || videoUrl || "");
+      setPlaying(true);
+    } catch (error) {
+      setError(error.message || "Video is not available yet.");
+    }
+  };
+
   return (
     <div
       className={`video-card anim-fadeInUp ${isLocked ? "video-card--locked" : ""}`}
@@ -28,7 +42,7 @@ const VideoCard = ({ video, index = 0, onUnlock }) => {
       <div className="video-card__media">
         {playing && !isLocked ? (
           <iframe
-            src={`${videoUrl}?autoplay=1`}
+            src={(() => { const u = playbackUrl || videoUrl || ""; return u + (u.includes("?") ? "&" : "?") + "autoplay=1"; })()}
             title={title}
             frameBorder="0"
             allow="autoplay; encrypted-media"
@@ -38,7 +52,7 @@ const VideoCard = ({ video, index = 0, onUnlock }) => {
         ) : (
           <>
             <img
-              src={thumbnail}
+              src={thumbnail || "https://picsum.photos/seed/drmomlesson/400/225"}
               alt={title}
               className="video-card__thumb"
               loading="lazy"
@@ -52,7 +66,7 @@ const VideoCard = ({ video, index = 0, onUnlock }) => {
               ) : (
                 <button
                   className="video-card__play-btn"
-                  onClick={() => setPlaying(true)}
+                  onClick={handlePlay}
                   aria-label={`Play ${title}`}
                 >
                   <span className="video-card__play-icon">▶</span>
@@ -68,7 +82,7 @@ const VideoCard = ({ video, index = 0, onUnlock }) => {
       <div className="video-card__body">
         <p className="video-card__chapter">{chapter}</p>
         <h4 className="video-card__title">{title}</h4>
-        <p className="video-card__desc">{desc}</p>
+        <p className="video-card__desc">{error || desc}</p>
 
         <div className="video-card__meta">
           <span className="video-card__views">👁 {views}</span>
@@ -82,7 +96,7 @@ const VideoCard = ({ video, index = 0, onUnlock }) => {
         ) : (
           <button
             className="video-card__watch-btn"
-            onClick={() => setPlaying(true)}
+            onClick={handlePlay}
           >
             <span>▶</span> Watch Free
           </button>

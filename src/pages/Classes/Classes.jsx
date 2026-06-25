@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
 import ClassCard from "../../components/ClassCard/ClassCard";
-import { CLASSES, SUBJECTS } from "../../data";
+import { getCatalog } from "../../utils/api";
 import "./Classes.css";
 
 const Classes = () => {
   const [hoveredClass, setHoveredClass] = useState(null);
+  const [catalog, setCatalog] = useState({ classes: [], subjects: {} });
   const location = useLocation();
   const selectedPlan = location.state?.plan;
+
+  useEffect(() => {
+    let mounted = true;
+    getCatalog()
+      .then((data) => {
+        if (mounted) setCatalog({ classes: data.classes || [], subjects: data.subjects || {} });
+      })
+      .catch(() => {});
+    return () => { mounted = false; };
+  }, []);
 
   return (
     <div className="classes-page page-wrapper">
@@ -41,7 +52,7 @@ const Classes = () => {
             </div>
           )}
           <div className="classes-grid">
-            {CLASSES.map((cls, i) => (
+            {catalog.classes.map((cls, i) => (
               <div
                 key={cls.id}
                 onMouseEnter={() => setHoveredClass(cls.id)}
@@ -69,7 +80,7 @@ const Classes = () => {
           </p>
 
           <div className="classes-subjects__grid">
-            {CLASSES.map((cls) => (
+            {catalog.classes.map((cls) => (
               <div key={cls.id} className="subject-card glass-panel anim-fadeInUp">
                 <div className="subject-card__header">
                   <span className="subject-card__emoji">{cls.emoji}</span>
@@ -79,7 +90,7 @@ const Classes = () => {
                   </div>
                 </div>
                 <ul className="subject-card__subjects">
-                  {(SUBJECTS[cls.id] || []).map((subj) => (
+                  {(catalog.subjects[cls.id] || []).map((subj) => (
                     <li key={subj} className="subject-card__subject">
                       <span className="subject-card__dot" style={{ background: cls.color }} />
                       {subj}
@@ -88,7 +99,7 @@ const Classes = () => {
                 </ul>
                 <div className="subject-card__footer">
                   <span className="subject-card__count">
-                    {(SUBJECTS[cls.id] || []).length} Subjects
+                    {(catalog.subjects[cls.id] || []).length} Subjects
                   </span>
                 </div>
               </div>

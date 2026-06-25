@@ -56,8 +56,8 @@ const Navbar = () => {
     setScrolled(window.scrollY > 24);
   }, []);
 
-  const handleLogout = () => {
-    clearStoredUser();
+  const handleLogout = async () => {
+    await clearStoredUser();
     setUser(null);
     navigate("/");
   };
@@ -108,7 +108,9 @@ const Navbar = () => {
           <div className="navbar__actions">
             {user ? (
               <div className="navbar__user-actions">
-                <span className="navbar__user-name">Hi, {user.name.split(" ")[0]}</span>
+                <Link to="/profile" className="navbar__user-name" style={{ textDecoration: "none" }}>
+                  Hi, {user.name.split(" ")[0]}
+                </Link>
                 <button className="navbar__logout-btn btn btn-outline" onClick={handleLogout} type="button">
                   Logout
                 </button>
@@ -151,13 +153,22 @@ const Navbar = () => {
               </NavLink>
             ))}
             {user ? (
-              <button
-                type="button"
-                className="btn btn-primary navbar__drawer-cta"
-                onClick={() => { setMenuOpen(false); handleLogout(); }}
-              >
-                Logout
-              </button>
+              <>
+                <Link
+                  to="/profile"
+                  className="navbar__drawer-link"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  My Profile
+                </Link>
+                <button
+                  type="button"
+                  className="btn btn-primary navbar__drawer-cta"
+                  onClick={() => { setMenuOpen(false); handleLogout(); }}
+                >
+                  Logout
+                </button>
+              </>
             ) : (
               <Link
                 to="/login"

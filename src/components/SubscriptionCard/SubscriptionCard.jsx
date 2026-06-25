@@ -8,7 +8,7 @@ const SubscriptionCard = ({ plan, index = 0 }) => {
 
   const handlePurchase = (e) => {
     if (e) e.stopPropagation();
-    if (id === "full") {
+    if (id === "full" && plan.courseId) {
       navigate("/payment", { state: { plan } });
     } else {
       navigate("/classes", { state: { plan } });
