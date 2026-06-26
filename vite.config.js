@@ -6,6 +6,15 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+    proxy: {
+      // All /api requests are proxied to the live backend
+      // This avoids CORS issues in development
+      '/api': {
+        target: 'http://106.51.20.225:28100',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
   build: {
     outDir: 'dist',

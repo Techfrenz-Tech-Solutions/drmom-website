@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
 import ClassCard from "../../components/ClassCard/ClassCard";
-import { CLASSES, SUBJECTS } from "../../data";
+import Icon from "../../components/Icon/Icon";
+import { CLASSES, SUBJECTS  from "../../data";
 import "./Classes.css";
 
 const Classes = () => {

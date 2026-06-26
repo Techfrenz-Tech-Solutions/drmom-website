@@ -1,4 +1,6 @@
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://106.51.20.225:28100/api";
+// In development, Vite proxies /api → http://106.51.20.225:28100/api (see vite.config.js)
+// In production, set VITE_API_BASE_URL to your deployed backend URL
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
 
 let _refreshing = null;
 
@@ -33,11 +35,10 @@ export async function apiRequest(path, options = {}, _retry = false) {
         // refresh failed — fall through to redirect
       }
     }
-    // Either refresh failed or the retry also returned 401 — kick to login
     const { clearStoredUser } = await import("./auth");
     await clearStoredUser(true);
     window.location.href = "/login";
-    return new Promise(() => {}); // never resolves; page is navigating away
+    return new Promise(() => {});
   }
 
   if (!response.ok) {

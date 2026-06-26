@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
+import Icon from "../../components/Icon/Icon";
 import "./Contact.css";
 
 const FAQS = [

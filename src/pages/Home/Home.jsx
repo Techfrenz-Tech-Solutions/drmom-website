@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
 import ClassCard from "../../components/ClassCard/ClassCard";
 import SubscriptionCard from "../../components/SubscriptionCard/SubscriptionCard";
+import Icon from "../../components/Icon/Icon";
 import { CLASSES, SUBSCRIPTION_PLANS, STATS, TESTIMONIALS } from "../../data";
 import "./Home.css";
 
