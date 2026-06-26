@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
+import Icon from "../../components/Icon/Icon";
 import "./Payment.css";
 
 const BANKS = ["SBI", "HDFC", "ICICI", "Axis", "Kotak", "Yes Bank", "PNB", "BOB"];
@@ -34,7 +35,7 @@ const Payment = () => {
     name: "Class Package", price: "₹499", period: "per class/year",
     color: "#34d399", features: ["All subjects", "HD Video", "Notes & Worksheets"],
   });
-  const activeClass = classInfo || { fullLabel: "Selected Class", emoji: "📚", color: "#34d399" };
+  const activeClass = classInfo || { fullLabel: "Selected Class", icon: "bookOpen", color: "#34d399" };
 
   const handleCardChange = (e) => {
     let { name, value } = e.target;
@@ -60,7 +61,9 @@ const Payment = () => {
         <ParticleBackground density={40} />
         <div className="container payment-success">
           <div className="payment-success__card glass-panel">
-            <div className="payment-success__icon">🎉</div>
+            <div className="payment-success__icon">
+              <Icon name="partyPopper" size={52} color="#fbbf24" />
+            </div>
             <h2 className="payment-success__title">Payment Successful!</h2>
             <p className="payment-success__sub">
               Welcome to Dr Mom 2.0! Your <strong>{activePlan.name}</strong> is now active.

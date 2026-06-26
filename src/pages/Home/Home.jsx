@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
 import ClassCard from "../../components/ClassCard/ClassCard";
 import SubscriptionCard from "../../components/SubscriptionCard/SubscriptionCard";
+import Icon from "../../components/Icon/Icon";
 import { CLASSES, SUBSCRIPTION_PLANS, STATS, TESTIMONIALS } from "../../data";
 import "./Home.css";
 
 const Home = () => {
-  const navigate = useNavigate();
   const [activeTestimonial, setActiveTestimonial] = useState(0);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Home = () => {
     <div className="home page-wrapper">
       <ParticleBackground density={70} />
 
-      {/* ══════════ HERO ══════════---- */}
+      {/* ══════════ HERO ══════════ */}
       <section className="hero">
         <div className="hero__bg-orbs" aria-hidden="true">
           <div className="hero__orb hero__orb--1" />
@@ -32,14 +32,14 @@ const Home = () => {
         <div className="container hero__inner">
           <div className="hero__content">
             <div className="tag anim-fadeInUp">
-              <span>✦</span> India's #1 Kids Learning Platform
+              <Icon name="sparkles" size={13} /> India's #1 Kids Learning Platform
             </div>
 
             <h1 className="hero__heading anim-fadeInUp delay-1">
               Where Young{" "}
               <span className="hero__heading-accent">Minds</span>
               <br />
-              <em className="hero__heading-em">Discover & Grow</em>
+              <em className="hero__heading-em">Discover &amp; Grow</em>
             </h1>
 
             <p className="hero__sub anim-fadeInUp delay-2">
@@ -59,11 +59,8 @@ const Home = () => {
             <div className="hero__trust anim-fadeInUp delay-4">
               <div className="hero__avatars">
                 {["P", "R", "A", "M", "S"].map((l, i) => (
-                  <span
-                    key={i}
-                    className="hero__avatar"
-                    style={{ background: ["#6b3fa0", "#0d9488", "#c2410c", "#1e40af", "#b45309"][i] }}
-                  >
+                  <span key={i} className="hero__avatar"
+                    style={{ background: ["#6b3fa0", "#0d9488", "#c2410c", "#1e40af", "#b45309"][i] }}>
                     {l}
                   </span>
                 ))}
@@ -79,7 +76,7 @@ const Home = () => {
             <div className="hero__card-stack">
               <div className="hero__float-card hero__float-card--main glass-panel">
                 <div className="hero__video-preview">
-                  <div className="hero__video-icon">▶</div>
+                  <div className="hero__video-icon"><Icon name="play" size={14} /></div>
                   <div className="hero__video-meta">
                     <span className="hero__video-label">Grade 3 · Science</span>
                     <span className="hero__video-title">The Water Cycle</span>
@@ -91,7 +88,7 @@ const Home = () => {
               </div>
 
               <div className="hero__float-card hero__float-card--stats glass-panel">
-                <span className="hero__stat-emoji">🌟</span>
+                <span className="hero__stat-emoji"><Icon name="star" size={20} color="#fbbf24" /></span>
                 <div>
                   <p className="hero__stat-val">4.9/5</p>
                   <p className="hero__stat-label">Student Rating</p>
@@ -99,7 +96,7 @@ const Home = () => {
               </div>
 
               <div className="hero__float-card hero__float-card--badge glass-panel">
-                <span>🏆</span>
+                <Icon name="trophy" size={20} color="#fbbf24" />
                 <span className="hero__badge-text">Lesson Complete!</span>
               </div>
 
@@ -128,7 +125,7 @@ const Home = () => {
         <div className="container">
           <div className="home-classes__header">
             <div>
-              <div className="tag">📚 All Classes</div>
+              <div className="tag"><Icon name="bookOpen" size={13} /> All Classes</div>
               <h2 className="section-title">
                 Choose Your <span className="gradient-text">Class</span>
               </h2>
@@ -156,7 +153,7 @@ const Home = () => {
         <div className="home-features__bg" aria-hidden="true" />
         <div className="container">
           <div className="home-features__header">
-            <div className="tag">⚡ Why Dr Mom 2.0</div>
+            <div className="tag"><Icon name="zap" size={13} /> Why Dr Mom 2.0</div>
             <h2 className="section-title">
               Learning That Feels Like <span className="gradient-text-purple">Magic</span>
             </h2>
@@ -165,15 +162,15 @@ const Home = () => {
 
           <div className="home-features__grid">
             {[
-              { icon: "🎬", title: "HD Video Lessons", desc: "Crystal-clear videos with expert narration, animations, and real-world examples that make concepts stick." },
-              { icon: "🗺️", title: "Structured Curriculum", desc: "Chapter-by-chapter progression aligned to the national syllabus, reviewed by certified educators." },
-              { icon: "🔄", title: "Learn at Your Pace", desc: "Rewatch lessons as many times as needed. No pressure, no deadlines — just pure learning joy." },
-              { icon: "📋", title: "Practice Worksheets", desc: "Downloadable activity sheets with every chapter to reinforce learning away from screens." },
-              { icon: "📊", title: "Progress Tracking", desc: "Parents can see exactly which chapters are done, quiz scores, and time spent learning." },
-              { icon: "🧑‍🏫", title: "Expert Educators", desc: "Every lesson is created by certified teachers with 10+ years of classroom experience." },
+              { icon: "video",      title: "HD Video Lessons",      desc: "Crystal-clear videos with expert narration, animations, and real-world examples that make concepts stick." },
+              { icon: "map",        title: "Structured Curriculum",  desc: "Chapter-by-chapter progression aligned to the national syllabus, reviewed by certified educators." },
+              { icon: "repeat",     title: "Learn at Your Pace",     desc: "Rewatch lessons as many times as needed. No pressure, no deadlines — just pure learning joy." },
+              { icon: "clipboard",  title: "Practice Worksheets",    desc: "Downloadable activity sheets with every chapter to reinforce learning away from screens." },
+              { icon: "barChart",   title: "Progress Tracking",      desc: "Parents can see exactly which chapters are done, quiz scores, and time spent learning." },
+              { icon: "users",      title: "Expert Educators",       desc: "Every lesson is created by certified teachers with 10+ years of classroom experience." },
             ].map(({ icon, title, desc }, i) => (
               <div key={i} className={`feat-card glass-panel anim-fadeInUp delay-${i % 4 + 1}`}>
-                <div className="feat-card__icon">{icon}</div>
+                <div className="feat-card__icon"><Icon name={icon} size={28} /></div>
                 <h3 className="feat-card__title">{title}</h3>
                 <p className="feat-card__desc">{desc}</p>
               </div>
@@ -186,7 +183,7 @@ const Home = () => {
       <section className="section home-pricing" id="pricing">
         <div className="container">
           <div className="home-pricing__header">
-            <div className="tag">💎 Pricing</div>
+            <div className="tag"><Icon name="diamond" size={13} /> Pricing</div>
             <h2 className="section-title">
               Simple, Transparent <span className="gradient-text">Pricing</span>
             </h2>
@@ -209,7 +206,7 @@ const Home = () => {
         <div className="home-testimonials__bg" aria-hidden="true" />
         <div className="container">
           <div className="home-testimonials__header">
-            <div className="tag">💬 What Parents Say</div>
+            <div className="tag"><Icon name="messageCircle" size={13} /> What Parents Say</div>
             <h2 className="section-title">
               Trusted by <span className="gradient-text">Thousands</span>
             </h2>
@@ -223,9 +220,7 @@ const Home = () => {
                 className={`testimonial-card glass-panel anim-fadeInUp ${i === activeTestimonial ? "testimonial-card--active" : ""}`}
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
-                <div className="testimonial-card__stars">
-                  {"★".repeat(t.rating)}
-                </div>
+                <div className="testimonial-card__stars">{"★".repeat(t.rating)}</div>
                 <p className="testimonial-card__text">"{t.text}"</p>
                 <div className="testimonial-card__author">
                   <div className="testimonial-card__avatar">{t.avatar}</div>
@@ -257,7 +252,7 @@ const Home = () => {
           <div className="home-cta__card glass-panel">
             <div className="home-cta__glow" aria-hidden="true" />
             <div className="home-cta__content">
-              <div className="tag">🚀 Get Started Today</div>
+              <div className="tag"><Icon name="rocket" size={13} /> Get Started Today</div>
               <h2 className="home-cta__title">
                 Give Your Child the Gift of{" "}
                 <span className="gradient-text">Brilliant Learning</span>
@@ -276,9 +271,20 @@ const Home = () => {
               </div>
             </div>
             <div className="home-cta__emoji-wall" aria-hidden="true">
-              {["🌱", "🌟", "🚀", "🦋", "🔬", "🎯", "🏆", "📚", "✦", "🎨"].map((e, i) => (
+              {[
+                { icon: "rocket",         color: "#c084fc" },
+                { icon: "star",           color: "#fbbf24" },
+                { icon: "graduationCap",  color: "#D4BEE4" },
+                { icon: "flask",          color: "#34d399" },
+                { icon: "target",         color: "#f87171" },
+                { icon: "trophy",         color: "#fbbf24" },
+                { icon: "bookOpen",       color: "#9B7EBD" },
+                { icon: "lightbulb",      color: "#fde68a" },
+                { icon: "palette",        color: "#fb7185" },
+                { icon: "sparkles",       color: "#D4BEE4" },
+              ].map(({ icon, color }, i) => (
                 <span key={i} className="home-cta__emoji" style={{ animationDelay: `${i * 0.3}s` }}>
-                  {e}
+                  <Icon name={icon} size={26} color={color} />
                 </span>
               ))}
             </div>

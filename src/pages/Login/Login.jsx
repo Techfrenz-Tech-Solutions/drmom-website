@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
+import Icon from "../../components/Icon/Icon";
 import { setStoredUser } from "../../utils/auth";
 import "./Login.css";
 
 const Login = () => {
-  const [mode, setMode] = useState("login"); // "login" | "register"
+  const [mode, setMode] = useState("login");
   const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "", class: "" });
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -22,16 +23,11 @@ const Login = () => {
       return;
     }
     setLoading(true);
-    // TODO: connect to backend auth
     setTimeout(() => {
       setLoading(false);
       const name = mode === "register" && form.name ? form.name.trim() : (form.name || form.email.split("@")[0]).trim();
-      setStoredUser({
-        name: name || "Student",
-        email: form.email.trim(),
-        class: form.class || "",
-      });
-      alert(mode === "login" ? "Login successful! 🎉" : "Account created! Welcome to Dr Mom 2.0 🌟");
+      setStoredUser({ name: name || "Student", email: form.email.trim(), class: form.class || "" });
+      alert(mode === "login" ? "Login successful!" : "Account created! Welcome to Dr Mom 2.0");
       navigate("/");
     }, 1200);
   };
@@ -59,13 +55,13 @@ const Login = () => {
 
             <div className="login-left__features">
               {[
-                { icon: "🎬", text: "2,000+ HD Video Lessons" },
-                { icon: "📋", text: "Practice Worksheets & Notes" },
-                { icon: "📊", text: "Real-time Progress Tracking" },
-                { icon: "🧑‍🏫", text: "Expert-certified Teachers" },
+                { icon: "video",    text: "2,000+ HD Video Lessons" },
+                { icon: "clipboard", text: "Practice Worksheets & Notes" },
+                { icon: "barChart", text: "Real-time Progress Tracking" },
+                { icon: "users",    text: "Expert-certified Teachers" },
               ].map(({ icon, text }) => (
                 <div key={text} className="login-left__feature">
-                  <span className="login-left__feature-icon">{icon}</span>
+                  <span className="login-left__feature-icon"><Icon name={icon} size={18} /></span>
                   <span>{text}</span>
                 </div>
               ))}
@@ -85,54 +81,32 @@ const Login = () => {
         {/* Right Panel — Form */}
         <div className="login-right">
           <div className="login-form-card glass-panel">
-            {/* Tab Toggle */}
             <div className="login-tabs">
-              <button
-                className={`login-tab ${mode === "login" ? "login-tab--active" : ""}`}
-                onClick={() => { setMode("login"); setError(""); }}
-              >
-                Sign In
-              </button>
-              <button
-                className={`login-tab ${mode === "register" ? "login-tab--active" : ""}`}
-                onClick={() => { setMode("register"); setError(""); }}
-              >
-                Create Account
-              </button>
+              <button className={`login-tab ${mode === "login" ? "login-tab--active" : ""}`} onClick={() => { setMode("login"); setError(""); }}>Sign In</button>
+              <button className={`login-tab ${mode === "register" ? "login-tab--active" : ""}`} onClick={() => { setMode("register"); setError(""); }}>Create Account</button>
             </div>
 
             <form className="login-form" onSubmit={handleSubmit}>
               <p className="login-form__welcome">
-                {mode === "login"
-                  ? "Welcome back! ✨"
-                  : "Join Dr Mom 2.0 today 🚀"}
+                {mode === "login" ? "Welcome back!" : "Join Dr Mom 2.0 today"}
               </p>
 
-              {/* Name — register only */}
               {mode === "register" && (
                 <div className="login-field">
                   <label htmlFor="name">Student Name</label>
                   <div className="login-field__wrap">
-                    <span className="login-field__icon">👤</span>
-                    <input
-                      id="name" name="name" type="text" required
-                      placeholder="Enter student's full name"
-                      value={form.name} onChange={handleChange}
-                    />
+                    <span className="login-field__icon"><Icon name="user" size={16} /></span>
+                    <input id="name" name="name" type="text" required placeholder="Enter student's full name" value={form.name} onChange={handleChange} />
                   </div>
                 </div>
               )}
 
-              {/* Class — register only */}
               {mode === "register" && (
                 <div className="login-field">
                   <label htmlFor="class">Select Class</label>
                   <div className="login-field__wrap">
-                    <span className="login-field__icon">📚</span>
-                    <select
-                      id="class" name="class" required
-                      value={form.class} onChange={handleChange}
-                    >
+                    <span className="login-field__icon"><Icon name="bookOpen" size={16} /></span>
+                    <select id="class" name="class" required value={form.class} onChange={handleChange}>
                       <option value="">-- Select Class --</option>
                       {["LKG", "UKG", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5"].map((c) => (
                         <option key={c} value={c}>{c}</option>
@@ -142,62 +116,37 @@ const Login = () => {
                 </div>
               )}
 
-              {/* Email */}
               <div className="login-field">
                 <label htmlFor="email">Email Address</label>
                 <div className="login-field__wrap">
-                  <span className="login-field__icon">✉️</span>
-                  <input
-                    id="email" name="email" type="email" required
-                    placeholder="parent@email.com"
-                    value={form.email} onChange={handleChange}
-                  />
+                  <span className="login-field__icon"><Icon name="mail" size={16} /></span>
+                  <input id="email" name="email" type="email" required placeholder="parent@email.com" value={form.email} onChange={handleChange} />
                 </div>
               </div>
 
-              {/* Password */}
               <div className="login-field">
                 <label htmlFor="password">Password</label>
                 <div className="login-field__wrap">
-                  <span className="login-field__icon">🔒</span>
-                  <input
-                    id="password" name="password"
-                    type={showPass ? "text" : "password"} required
-                    placeholder="Enter your password"
-                    value={form.password} onChange={handleChange}
-                  />
-                  <button
-                    type="button"
-                    className="login-field__toggle"
-                    onClick={() => setShowPass((p) => !p)}
-                    aria-label={showPass ? "Hide password" : "Show password"}
-                  >
-                    {showPass ? "🙈" : "👁"}
+                  <span className="login-field__icon"><Icon name="lock" size={16} /></span>
+                  <input id="password" name="password" type={showPass ? "text" : "password"} required placeholder="Enter your password" value={form.password} onChange={handleChange} />
+                  <button type="button" className="login-field__toggle" onClick={() => setShowPass((p) => !p)} aria-label={showPass ? "Hide password" : "Show password"}>
+                    <Icon name={showPass ? "eyeOff" : "eye"} size={16} />
                   </button>
                 </div>
               </div>
 
-              {/* Confirm Password — register only */}
               {mode === "register" && (
                 <div className="login-field">
                   <label htmlFor="confirm">Confirm Password</label>
                   <div className="login-field__wrap">
-                    <span className="login-field__icon">🔑</span>
-                    <input
-                      id="confirm" name="confirm"
-                      type={showPass ? "text" : "password"} required
-                      placeholder="Re-enter password"
-                      value={form.confirm} onChange={handleChange}
-                    />
+                    <span className="login-field__icon"><Icon name="key" size={16} /></span>
+                    <input id="confirm" name="confirm" type={showPass ? "text" : "password"} required placeholder="Re-enter password" value={form.confirm} onChange={handleChange} />
                   </div>
                 </div>
               )}
 
-              {/* Forgot */}
               {mode === "login" && (
-                <div className="login-forgot">
-                  <a href="#!">Forgot password?</a>
-                </div>
+                <div className="login-forgot"><a href="#!">Forgot password?</a></div>
               )}
 
               {error && <p className="login-error">{error}</p>}
