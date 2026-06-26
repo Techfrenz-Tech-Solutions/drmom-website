@@ -3,18 +3,32 @@ import { Link } from "react-router-dom";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
 import ClassCard from "../../components/ClassCard/ClassCard";
 import SubscriptionCard from "../../components/SubscriptionCard/SubscriptionCard";
-import Icon from "../../components/Icon/Icon";
 import { CLASSES, SUBSCRIPTION_PLANS, STATS, TESTIMONIALS } from "../../data";
 import "./Home.css";
 
 const Home = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [catalog, setCatalog] = useState({ classes: [], subscriptionPlans: [] });
 
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
     }, 4000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    let mounted = true;
+    getCatalog()
+      .then((data) => {
+        if (!mounted) return;
+        setCatalog({
+          classes: data.classes || [],
+          subscriptionPlans: data.subscriptionPlans || [],
+        });
+      })
+      .catch(() => {});
+    return () => { mounted = false; };
   }, []);
 
   return (
@@ -141,7 +155,7 @@ const Home = () => {
           </div>
 
           <div className="home-classes__grid">
-            {CLASSES.map((cls, i) => (
+            {catalog.classes.map((cls, i) => (
               <ClassCard key={cls.id} classData={cls} index={i} />
             ))}
           </div>
@@ -194,7 +208,7 @@ const Home = () => {
           </div>
 
           <div className="home-pricing__grid">
-            {SUBSCRIPTION_PLANS.map((plan, i) => (
+            {catalog.subscriptionPlans.map((plan, i) => (
               <SubscriptionCard key={plan.id} plan={plan} index={i} />
             ))}
           </div>

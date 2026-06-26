@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
-import Icon from "../../components/Icon/Icon";
 import "./Contact.css";
 
 const FAQS = [
@@ -28,12 +27,15 @@ const SOCIAL_LINKS = [
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
   const [openFaq, setOpenFaq] = useState(null);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    // TODO: connect to backend
     setSubmitted(true);
   };
 
@@ -146,7 +148,7 @@ const Contact = () => {
                   <textarea id="message" name="message" required rows={5} placeholder="How can we help you?" value={form.message} onChange={handleChange} />
                 </div>
                 <button type="submit" className="btn btn-primary contact-form__submit">
-                  <Icon name="send" size={15} /> Send Message
+                  Send Message ✉️
                 </button>
               </form>
             )}

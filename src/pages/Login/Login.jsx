@@ -18,6 +18,10 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setError("");
+    if (mode === "register" && form.password.length < 8) {
+      setError("Password must be at least 8 characters.");
+      return;
+    }
     if (mode === "register" && form.password !== form.confirm) {
       setError("Passwords do not match.");
       return;
@@ -25,9 +29,10 @@ const Login = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      const name = mode === "register" && form.name ? form.name.trim() : (form.name || form.email.split("@")[0]).trim();
+      const name = mode === "register" && form.name
+        ? form.name.trim()
+        : (form.name || form.email.split("@")[0]).trim();
       setStoredUser({ name: name || "Student", email: form.email.trim(), class: form.class || "" });
-      alert(mode === "login" ? "Login successful!" : "Account created! Welcome to Dr Mom 2.0");
       navigate("/");
     }, 1200);
   };
@@ -55,10 +60,10 @@ const Login = () => {
 
             <div className="login-left__features">
               {[
-                { icon: "video",    text: "2,000+ HD Video Lessons" },
+                { icon: "video",     text: "2,000+ HD Video Lessons" },
                 { icon: "clipboard", text: "Practice Worksheets & Notes" },
-                { icon: "barChart", text: "Real-time Progress Tracking" },
-                { icon: "users",    text: "Expert-certified Teachers" },
+                { icon: "barChart",  text: "Real-time Progress Tracking" },
+                { icon: "users",     text: "Expert-certified Teachers" },
               ].map(({ icon, text }) => (
                 <div key={text} className="login-left__feature">
                   <span className="login-left__feature-icon"><Icon name={icon} size={18} /></span>
@@ -70,7 +75,10 @@ const Login = () => {
             <div className="login-left__reviews">
               <div className="login-left__avatars">
                 {["A", "B", "C", "D"].map((l, i) => (
-                  <span key={l} className="login-left__avatar" style={{ background: ["#6b3fa0", "#0d9488", "#c2410c", "#1e40af"][i] }}>{l}</span>
+                  <span key={l} className="login-left__avatar"
+                    style={{ background: ["#6b3fa0", "#0d9488", "#c2410c", "#1e40af"][i] }}>
+                    {l}
+                  </span>
                 ))}
               </div>
               <p>Joined by <strong>50,000+</strong> happy learners</p>
@@ -82,8 +90,18 @@ const Login = () => {
         <div className="login-right">
           <div className="login-form-card glass-panel">
             <div className="login-tabs">
-              <button className={`login-tab ${mode === "login" ? "login-tab--active" : ""}`} onClick={() => { setMode("login"); setError(""); }}>Sign In</button>
-              <button className={`login-tab ${mode === "register" ? "login-tab--active" : ""}`} onClick={() => { setMode("register"); setError(""); }}>Create Account</button>
+              <button
+                className={`login-tab ${mode === "login" ? "login-tab--active" : ""}`}
+                onClick={() => { setMode("login"); setError(""); }}
+              >
+                Sign In
+              </button>
+              <button
+                className={`login-tab ${mode === "register" ? "login-tab--active" : ""}`}
+                onClick={() => { setMode("register"); setError(""); }}
+              >
+                Create Account
+              </button>
             </div>
 
             <form className="login-form" onSubmit={handleSubmit}>
@@ -91,16 +109,22 @@ const Login = () => {
                 {mode === "login" ? "Welcome back!" : "Join Dr Mom 2.0 today"}
               </p>
 
+              {/* Name — register only */}
               {mode === "register" && (
                 <div className="login-field">
                   <label htmlFor="name">Student Name</label>
                   <div className="login-field__wrap">
                     <span className="login-field__icon"><Icon name="user" size={16} /></span>
-                    <input id="name" name="name" type="text" required placeholder="Enter student's full name" value={form.name} onChange={handleChange} />
+                    <input
+                      id="name" name="name" type="text" required
+                      placeholder="Enter student's full name"
+                      value={form.name} onChange={handleChange}
+                    />
                   </div>
                 </div>
               )}
 
+              {/* Class — register only */}
               {mode === "register" && (
                 <div className="login-field">
                   <label htmlFor="class">Select Class</label>
@@ -116,31 +140,53 @@ const Login = () => {
                 </div>
               )}
 
+              {/* Email */}
               <div className="login-field">
                 <label htmlFor="email">Email Address</label>
                 <div className="login-field__wrap">
                   <span className="login-field__icon"><Icon name="mail" size={16} /></span>
-                  <input id="email" name="email" type="email" required placeholder="parent@email.com" value={form.email} onChange={handleChange} />
+                  <input
+                    id="email" name="email" type="email" required
+                    placeholder="parent@email.com"
+                    value={form.email} onChange={handleChange}
+                  />
                 </div>
               </div>
 
+              {/* Password */}
               <div className="login-field">
                 <label htmlFor="password">Password</label>
                 <div className="login-field__wrap">
                   <span className="login-field__icon"><Icon name="lock" size={16} /></span>
-                  <input id="password" name="password" type={showPass ? "text" : "password"} required placeholder="Enter your password" value={form.password} onChange={handleChange} />
-                  <button type="button" className="login-field__toggle" onClick={() => setShowPass((p) => !p)} aria-label={showPass ? "Hide password" : "Show password"}>
+                  <input
+                    id="password" name="password"
+                    type={showPass ? "text" : "password"} required
+                    placeholder="Enter your password"
+                    value={form.password} onChange={handleChange}
+                  />
+                  <button
+                    type="button"
+                    className="login-field__toggle"
+                    onClick={() => setShowPass((p) => !p)}
+                    aria-label={showPass ? "Hide password" : "Show password"}
+                  >
                     <Icon name={showPass ? "eyeOff" : "eye"} size={16} />
                   </button>
                 </div>
               </div>
 
+              {/* Confirm Password — register only */}
               {mode === "register" && (
                 <div className="login-field">
                   <label htmlFor="confirm">Confirm Password</label>
                   <div className="login-field__wrap">
                     <span className="login-field__icon"><Icon name="key" size={16} /></span>
-                    <input id="confirm" name="confirm" type={showPass ? "text" : "password"} required placeholder="Re-enter password" value={form.confirm} onChange={handleChange} />
+                    <input
+                      id="confirm" name="confirm"
+                      type={showPass ? "text" : "password"} required
+                      placeholder="Re-enter password"
+                      value={form.confirm} onChange={handleChange}
+                    />
                   </div>
                 </div>
               )}
@@ -164,9 +210,17 @@ const Login = () => {
 
               <p className="login-form__footer">
                 {mode === "login" ? (
-                  <>Don't have an account?{" "}<button type="button" className="login-switch" onClick={() => setMode("register")}>Sign Up Free</button></>
+                  <>Don't have an account?{" "}
+                    <button type="button" className="login-switch" onClick={() => setMode("register")}>
+                      Sign Up Free
+                    </button>
+                  </>
                 ) : (
-                  <>Already a member?{" "}<button type="button" className="login-switch" onClick={() => setMode("login")}>Sign In</button></>
+                  <>Already a member?{" "}
+                    <button type="button" className="login-switch" onClick={() => setMode("login")}>
+                      Sign In
+                    </button>
+                  </>
                 )}
               </p>
 

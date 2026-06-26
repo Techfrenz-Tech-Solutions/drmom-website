@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState } from "react";
+import React, { Suspense, lazy, useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import BottomNav from "./components/BottomNav/BottomNav";
@@ -6,6 +6,8 @@ import Footer from "./components/Footer/Footer";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import BookLoader from "./components/BookLoader/BookLoader";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import { getStoredUser, setStoredUser } from "./utils/auth";
+import { apiRequest } from "./utils/api";
 import "./styles/global.css";
 
 // Lazy-loaded pages for code splitting
@@ -16,6 +18,7 @@ const VideoContent = lazy(() => import("./pages/VideoContent/VideoContent"));
 const Contact = lazy(() => import("./pages/Contact/Contact"));
 const Login   = lazy(() => import("./pages/Login/Login"));
 const Payment = lazy(() => import("./pages/Payment/Payment"));
+const Profile = lazy(() => import("./pages/Profile/Profile"));
 
 const PageLoader = () => (
   <div style={{ minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -25,6 +28,17 @@ const PageLoader = () => (
 
 function App() {
   const [loading, setLoading] = useState(true);
+
+  // On startup, verify the stored session is still valid against the backend.
+  // If the user was deleted or deactivated, the 401 interceptor in api.js
+  // will clear localStorage and redirect to /login automatically.
+  useEffect(() => {
+    if (getStoredUser()) {
+      apiRequest("/auth/me")
+        .then((data) => { if (data?.user) setStoredUser(data.user); })
+        .catch(() => {});
+    }
+  }, []);
 
   return (
     <BrowserRouter>
@@ -40,6 +54,7 @@ function App() {
           <Route path="/contact"           element={<Contact />} />
           <Route path="/login"             element={<Login />} />
           <Route path="/payment"           element={<Payment />} />
+          <Route path="/profile"           element={<Profile />} />
           {/* 404 */}
           <Route path="*" element={
             <div style={{ minHeight: "80vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1rem", padding: "2rem", textAlign: "center" }}>

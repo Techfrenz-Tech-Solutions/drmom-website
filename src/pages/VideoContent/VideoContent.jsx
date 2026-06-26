@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
 import VideoCard from "../../components/VideoCard/VideoCard";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
-import { CLASSES, SUBJECTS, VIDEOS_DATA, SUBSCRIPTION_PLANS } from "../../data";
+import { getCatalog } from "../../utils/api";
 import "./VideoContent.css";
 
 const VideoContent = () => {
@@ -12,10 +12,17 @@ const VideoContent = () => {
   const location = useLocation();
   const pricingRef = useRef(null);
   const selectedPlan = location.state?.plan;
+  const [catalog, setCatalog] = useState({
+    classes: [],
+    subjects: {},
+    videosData: {},
+    subscriptionPlans: [],
+  });
 
-  const classInfo = CLASSES.find((c) => c.id === classId);
-  const subjects = SUBJECTS[classId] || [];
-  const allVideos = VIDEOS_DATA[classId] || {};
+  const classInfo = catalog.classes.find((c) => c.id === classId);
+  const subjects = catalog.subjects[classId] || [];
+  const allVideos = catalog.videosData[classId] || {};
+  const plans = catalog.subscriptionPlans;
 
   const [activeSubject, setActiveSubject] = useState(subjects[0] || "");
   const [activeChapter, setActiveChapter] = useState("all");
@@ -28,8 +35,8 @@ const VideoContent = () => {
     if (video && typeof video === "object" && video.id) {
       navigate("/payment", {
         state: {
-          plan: SUBSCRIPTION_PLANS[0],
-          classInfo,
+          plan: plans[0],
+          classInfo: { ...classInfo, courseId: video.courseId || currentCourseId },
           video,
         },
       });
@@ -54,8 +61,8 @@ const VideoContent = () => {
     setPlanNotice("");
     navigate("/payment", {
       state: {
-        plan,
-        classInfo,
+        plan: { ...plan, courseId: currentCourseId },
+        classInfo: { ...classInfo, courseId: currentCourseId },
         chapter: activeChapter !== "all" ? activeChapter : undefined,
       },
     });
@@ -78,9 +85,35 @@ const VideoContent = () => {
     }
   }, [selectedPlan]);
 
+  useEffect(() => {
+    let mounted = true;
+    getCatalog()
+      .then((data) => {
+        if (!mounted) return;
+        setCatalog({
+          classes: data.classes || [],
+          subjects: data.subjects || {},
+          videosData: data.videosData || {},
+          subscriptionPlans: data.subscriptionPlans || [],
+        });
+      })
+      .catch(() => {});
+    return () => { mounted = false; };
+  }, []);
+
+  useEffect(() => {
+    if (!subjects.includes(activeSubject)) {
+      setActiveSubject(subjects[0] || "");
+    }
+  }, [subjects, activeSubject]);
+
   useEffect(() => { setActiveChapter("all"); }, [activeSubject]);
 
   const subjectVideos = useMemo(() => allVideos[activeSubject] || [], [allVideos, activeSubject]);
+  const currentCourseId = useMemo(() => {
+    const videos = subjectVideos.length ? subjectVideos : Object.values(allVideos).flat();
+    return videos.find((video) => video.courseId)?.courseId;
+  }, [allVideos, subjectVideos]);
 
   const chapters = useMemo(() => {
     const seen = new Set();
@@ -149,7 +182,7 @@ const VideoContent = () => {
             </button>
             <button
               className="btn btn-primary vc-header__class-btn"
-              onClick={() => handlePlanPurchase(SUBSCRIPTION_PLANS.find((plan) => plan.id === "class"))}
+              onClick={() => handlePlanPurchase(plans.find((plan) => plan.id === "class") || plans[0])}
               type="button"
             >
               Buy Class
@@ -185,7 +218,7 @@ const VideoContent = () => {
                     {planNotice}
                   </div>
                 )}
-                {SUBSCRIPTION_PLANS.map((plan) => (
+                {plans.map((plan) => (
                   <div
                     key={plan.id}
                     className={`vc-plan-card ${plan.popular ? "vc-plan-card--popular" : ""}`}
@@ -266,7 +299,7 @@ const VideoContent = () => {
             </div>
             <button
               className="btn btn-primary vc-chapter-buy-btn"
-              onClick={() => handlePlanPurchase(SUBSCRIPTION_PLANS.find((plan) => plan.id === "chapter"))}
+              onClick={() => handlePlanPurchase(plans.find((plan) => plan.id === "chapter") || plans[0])}
               type="button"
             >
               Buy Chapter
@@ -344,7 +377,7 @@ const VideoContent = () => {
         <div className="container">
           <h3 className="vc-other-classes__title">Explore Other Classes</h3>
           <div className="vc-other-classes__row">
-            {CLASSES.filter((c) => c.id !== classId).slice(0, 4).map((cls) => (
+            {catalog.classes.filter((c) => c.id !== classId).slice(0, 4).map((cls) => (
               <button
                 key={cls.id}
                 className="vc-other-class-btn glass-panel"

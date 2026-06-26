@@ -59,8 +59,8 @@ const BottomNav = () => {
         };
     }, []);
 
-    const handleLogout = () => {
-        clearStoredUser();
+    const handleLogout = async () => {
+        await clearStoredUser();
         setUser(null);
         navigate("/");
     };
