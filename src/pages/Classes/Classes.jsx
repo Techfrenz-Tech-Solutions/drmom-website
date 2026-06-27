@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import ParticleBackground from "../../components/ParticleBackground/ParticleBackground";
 import ClassCard from "../../components/ClassCard/ClassCard";
 import Icon from "../../components/Icon/Icon";
-import { CLASSES, SUBJECTS  from "../../data";
+import { CLASSES, SUBJECTS } from "../../data";
 import "./Classes.css";
 
 const Classes = () => {
