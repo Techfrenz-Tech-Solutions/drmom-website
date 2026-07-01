@@ -116,10 +116,21 @@ const Navbar = () => {
                 </button>
               </div>
             ) : (
-              <Link to="/login" className="navbar__login-btn">
-                <span className="navbar__login-icon">⊙</span>
-                Student Login
-              </Link>
+              <div className="navbar__auth-btns">
+                <Link to="/dashboard" className="navbar__login-btn">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" className="navbar__dashboard-icon">
+                    <rect x="3" y="3" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+                    <rect x="14" y="3" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+                    <rect x="3" y="14" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+                    <rect x="14" y="14" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+                  </svg>
+                   Student Dashboard
+                </Link>
+                <Link to="/login" className="navbar__login-btn">
+                  <span className="navbar__login-icon">⊙</span>
+                  Student Login
+                </Link>
+              </div>
             )}
           </div>
 
@@ -170,13 +181,28 @@ const Navbar = () => {
                 </button>
               </>
             ) : (
-              <Link
-                to="/login"
-                className="btn btn-primary navbar__drawer-cta"
-                onClick={() => setMenuOpen(false)}
-              >
-                Student Login
-              </Link>
+              <>
+                <Link
+                  to="/dashboard"
+                  className="navbar__drawer-link navbar__drawer-link--dashboard"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true" className="navbar__dashboard-icon">
+                    <rect x="3" y="3" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+                    <rect x="14" y="3" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+                    <rect x="3" y="14" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+                    <rect x="14" y="14" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+                  </svg>
+                  Student Dashboard
+                </Link>
+                <Link
+                  to="/login"
+                  className="btn btn-primary navbar__drawer-cta"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Student Login
+                </Link>
+              </>
             )}
           </nav>
         </div>
