@@ -1,163 +1,280 @@
-/* ── Page wrapper ── */
+/* ════════════════════════════════
+   Refund Policy — Unique Layout
+   Accent: Emerald / Green
+════════════════════════════════ */
+
 .refund-page {
   min-height: 100vh;
-  background: #f7f5fb;
+  background: #f0faf5;
   padding-top: 90px;
 }
 
-/* ── Hero header ── */
 .refund-header {
-  background: linear-gradient(135deg, #3B1E54 0%, #6b3fa0 60%, #9B7EBD 100%);
-  padding: 4rem 0 6rem;
-  text-align: center;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #059669 100%);
+  padding: 5rem 0 4rem;
+  text-align: center;
 }
 
 .refund-header::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.07) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 40%);
+  width: 450px; height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(110,231,183,0.2) 0%, transparent 70%);
+  top: -150px; left: -80px;
+  animation: refundBlob 8s ease-in-out infinite alternate;
 }
-
-/* wave bottom */
 .refund-header::after {
   content: "";
   position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: #f7f5fb;
-  clip-path: ellipse(55% 100% at 50% 100%);
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(167,243,208,0.18) 0%, transparent 70%);
+  bottom: -80px; right: -60px;
+  animation: refundBlob 11s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes refundBlob {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(20px,25px) scale(1.1); }
+}
+
+.refund-header-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.refund-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 1.25rem;
+}
+
+.refund-badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #6ee7b7;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.75); }
 }
 
 .refund-title {
   font-family: var(--font-display);
-  font-size: 3rem;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 0.5rem;
-  position: relative;
-  z-index: 1;
+  margin-bottom: 0.75rem;
+  line-height: 1.1;
 }
 
 .refund-subtitle {
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 0.95rem;
-  font-weight: 400;
-  position: relative;
-  z-index: 1;
-  letter-spacing: 0.03em;
+  color: rgba(255,255,255,0.65);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
 }
 
-/* ── Content area ── */
-.refund-content {
-  max-width: 860px;
+.refund-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2.5rem;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 3rem 2rem 5rem;
+  align-items: start;
 }
 
-/* ── Section cards ── */
+.refund-toc {
+  position: sticky;
+  top: 110px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem 1.25rem;
+  box-shadow: 0 4px 20px rgba(6,78,59,0.1);
+  border-top: 4px solid #059669;
+}
+
+.refund-toc-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #059669;
+  margin-bottom: 1rem;
+}
+
+.refund-toc-list {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.refund-toc-list a {
+  display: block;
+  font-size: 0.82rem;
+  color: #374151;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1.4;
+}
+
+.refund-toc-list a:hover {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.refund-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
 .refund-section {
   background: #ffffff;
   border-radius: 16px;
-  border-left: 5px solid #9B7EBD;
-  padding: 2rem 2rem 1.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 12px rgba(59, 30, 84, 0.07);
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(6,78,59,0.07);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .refund-section:hover {
-  box-shadow: 0 6px 24px rgba(59, 30, 84, 0.12);
+  box-shadow: 0 8px 28px rgba(6,78,59,0.13);
   transform: translateY(-2px);
 }
 
-.refund-section:last-child {
-  margin-bottom: 0;
+.refund-section:last-child { margin-bottom: 0; }
+
+.refund-section-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.4rem 1.75rem;
+  background: linear-gradient(90deg, #f0fdf4 0%, #ffffff 100%);
+  border-bottom: 1px solid #d1fae5;
+}
+
+.refund-section-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #065f46, #059669);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
 }
 
 .refund-section h2 {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.15rem;
   font-weight: 700;
-  color: #3B1E54;
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  color: #064e3b;
+  margin: 0;
 }
 
-.refund-section h2::before {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #9B7EBD;
-  flex-shrink: 0;
+.refund-section-body {
+  padding: 1.5rem 1.75rem;
 }
 
 .refund-section h3 {
-  font-family: var(--font-ui, sans-serif);
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #6b3fa0;
-  margin-top: 1.25rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #059669;
+  margin: 1.2rem 0 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .refund-section p {
-  color: #3d3d4e;
+  color: #374151;
   line-height: 1.85;
-  margin-bottom: 0.85rem;
-  font-size: 0.97rem;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
 }
 
 .refund-section ul {
   list-style: none;
-  padding-left: 0;
-  margin: 0.75rem 0;
+  padding: 0; margin: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 .refund-section ul li {
-  color: #3d3d4e;
-  line-height: 1.8;
-  margin-bottom: 0.5rem;
-  padding-left: 1.6rem;
-  position: relative;
-  font-size: 0.97rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: #374151;
+  line-height: 1.7;
 }
 
 .refund-section ul li::before {
-  content: "▸";
-  position: absolute;
-  left: 0;
-  color: #9B7EBD;
-  font-size: 1rem;
-  line-height: 1.8;
+  content: "✦";
+  color: #059669;
+  font-size: 0.65rem;
+  margin-top: 5px;
+  flex-shrink: 0;
 }
 
-.refund-section ul li strong {
-  color: #3B1E54;
-  font-weight: 600;
-}
+.refund-section ul li strong { color: #064e3b; font-weight: 600; }
 
-/* contact list overrides */
-.contact-list li::before { content: "📧"; }
+.contact-list li::before { content: "📧"; font-size: 0.9rem; margin-top: 2px; }
 .contact-list li:nth-child(2)::before { content: "📞"; }
 .contact-list li:nth-child(3)::before { content: "📍"; }
 
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  .refund-header { padding: 3rem 1rem 5rem; }
+@media (max-width: 900px) {
+  .refund-layout { grid-template-columns: 1fr; }
+  .refund-toc { position: static; display: none; }
+}
+
+@media (max-width: 600px) {
   .refund-title { font-size: 2rem; }
-  .refund-content { padding: 2rem 1rem 4rem; }
-  .refund-section { padding: 1.5rem 1.25rem; }
-  .refund-section h2 { font-size: 1.2rem; }
-  .refund-section p,
-  .refund-section ul li { font-size: 0.92rem; }
+  .refund-section-head { padding: 1.1rem 1.25rem; }
+  .refund-section-body { padding: 1.25rem; }
+}
+
+/* ── TOC active state ── */
+.refund-toc-list a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.refund-toc-list a.refund-toc-active {
+  background: #ecfdf5;
+  color: #065f46;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.refund-toc-indicator {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #059669;
+  flex-shrink: 0;
+  animation: tocDot 0.3s ease;
+}
+
+@keyframes tocDot {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
 }
