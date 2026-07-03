@@ -6,7 +6,7 @@ const VideoCard = ({ video, index = 0, onUnlock }) => {
   const [playing, setPlaying] = useState(false);
   const [playbackUrl, setPlaybackUrl] = useState("");
   const [error, setError] = useState("");
-  const { title, thumbnail, duration, views, rating, isLocked, desc, chapter, videoUrl } = video;
+  const { title, thumbnail, duration, views, rating, isLocked, desc, chapter, videoUrl, chapterId } = video;
 
   const handleUnlock = (e) => {
     e.stopPropagation();
@@ -25,7 +25,10 @@ const VideoCard = ({ video, index = 0, onUnlock }) => {
   const handlePlay = async () => {
     setError("");
     try {
-      const data = await apiRequest(`/courses/lessons/${video.id}/playback`);
+      // Video content lives inside a Chapter now (Class -> Subject -> Course
+      // -> Chapter), not a standalone Lesson — chapterId comes through on
+      // the catalog payload alongside the video's own id.
+      const data = await apiRequest(`/courses/chapters/${chapterId}/videos/${video.id}/playback`);
       setPlaybackUrl(data.playback?.embedUrl || videoUrl || "");
       setPlaying(true);
     } catch (error) {
