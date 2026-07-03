@@ -18,6 +18,9 @@ const VideoContent = lazy(() => import("./pages/VideoContent/VideoContent"));
 const Contact      = lazy(() => import("./pages/Contact/Contact"));
 const Login        = lazy(() => import("./pages/Login/Login"));
 const Payment      = lazy(() => import("./pages/Payment/Payment"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy/PrivacyPolicy"));
+const TermsOfUse   = lazy(() => import("./pages/TermsOfUse/TermsOfUse"));
+const RefundPolicy = lazy(() => import("./pages/RefundPolicy/RefundPolicy"));
 
 const PageLoader = () => (
   <div style={{ minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -50,6 +53,9 @@ function App() {
           <Route path="/contact"           element={<Contact />} />
           <Route path="/login"             element={<Login />} />
           <Route path="/payment"           element={<Payment />} />
+          <Route path="/privacy-policy"    element={<PrivacyPolicy />} />
+          <Route path="/terms-of-use"      element={<TermsOfUse />} />
+          <Route path="/refund-policy"     element={<RefundPolicy />} />
           {/* 404 */}
           <Route path="*" element={
             <div style={{ minHeight: "80vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1rem", padding: "2rem", textAlign: "center" }}>

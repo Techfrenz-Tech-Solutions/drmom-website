@@ -89,9 +89,9 @@ const Footer = () => {
             {[
               { to: "/contact", label: "Contact Us" },
               { to: "#!", label: "Help Centre" },
-              { to: "#!", label: "Privacy Policy" },
-              { to: "#!", label: "Terms of Use" },
-              { to: "/login", label: "Student Login" },
+              { to: "/privacy-policy", label: "Privacy Policy" },
+              { to: "/terms-of-use", label: "Terms of Use" },
+              { to: "/refund-policy", label: "Refund Policy" },
             ].map(({ to, label }) => (
               <li key={label}>
                 <Link to={to} className="footer__link">{label}</Link>

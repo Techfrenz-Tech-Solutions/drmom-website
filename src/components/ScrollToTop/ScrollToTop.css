@@ -1,0 +1,62 @@
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #3B1E54 0%, #9B7EBD 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(59, 30, 84, 0.45);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* hidden by default */
+  opacity: 0;
+  transform: translateY(16px) scale(0.85);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s ease;
+}
+
+.scroll-to-top svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* visible state */
+.scroll-to-top--visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+.scroll-to-top:hover {
+  box-shadow: 0 8px 28px rgba(59, 30, 84, 0.6);
+  transform: translateY(-3px) scale(1.08);
+}
+
+.scroll-to-top:active {
+  transform: scale(0.95);
+}
+
+/* keep above bottom nav on mobile */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 5rem;
+    right: 1.25rem;
+    width: 42px;
+    height: 42px;
+  }
+
+  .scroll-to-top svg {
+    width: 18px;
+    height: 18px;
+  }
+}
