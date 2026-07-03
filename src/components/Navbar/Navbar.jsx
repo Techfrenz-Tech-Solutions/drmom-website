@@ -108,7 +108,7 @@ const Navbar = () => {
           <div className="navbar__actions">
             {user ? (
               <div className="navbar__user-actions">
-                <Link to="/profile" className="navbar__user-name" style={{ textDecoration: "none" }}>
+                <Link to="/dashboard" className="navbar__user-name" style={{ textDecoration: "none" }}>
                   Hi, {user.name.split(" ")[0]}
                 </Link>
                 <button className="navbar__logout-btn btn btn-outline" onClick={handleLogout} type="button">
@@ -166,11 +166,11 @@ const Navbar = () => {
             {user ? (
               <>
                 <Link
-                  to="/profile"
+                  to="/dashboard"
                   className="navbar__drawer-link"
                   onClick={() => setMenuOpen(false)}
                 >
-                  My Profile
+                  Dashboard
                 </Link>
                 <button
                   type="button"

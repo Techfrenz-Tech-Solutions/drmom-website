@@ -42,7 +42,9 @@ export async function apiRequest(path, options = {}, _retry = false) {
   }
 
   if (!response.ok) {
-    throw new Error(data.message || "Request failed");
+    const error = new Error(data.message || "Request failed");
+    error.code = data.details?.code;
+    throw error;
   }
 
   return data;

@@ -54,3 +54,15 @@ export const registerUser = async ({ name, email, password, gradeLabel }) => {
     setStoredUser(data.user);
     return data.user;
 };
+
+export const getPendingGoogleSignup = (token) =>
+    apiRequest(`/auth/google/pending-signup?token=${encodeURIComponent(token)}`);
+
+export const completeGoogleSignup = async ({ pendingToken, name, gradeLabel, phone }) => {
+    const data = await apiRequest("/auth/google/complete-signup", {
+        method: "POST",
+        body: JSON.stringify({ pendingToken, name, gradeLabel, phone }),
+    });
+    setStoredUser(data.user);
+    return data.user;
+};

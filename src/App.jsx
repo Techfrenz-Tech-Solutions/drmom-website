@@ -7,7 +7,7 @@ import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import BookLoader from "./components/BookLoader/BookLoader";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import { getStoredUser, setStoredUser } from "./utils/auth";
-import { apiRequest } from "./utils/api";
+import { apiRequest, API_BASE_URL } from "./utils/api";
 import Icon from "./components/Icon/Icon";
 import "./styles/global.css";
 
@@ -18,6 +18,8 @@ const VideoContent = lazy(() => import("./pages/VideoContent/VideoContent"));
 const Contact      = lazy(() => import("./pages/Contact/Contact"));
 const Login        = lazy(() => import("./pages/Login/Login"));
 const Payment      = lazy(() => import("./pages/Payment/Payment"));
+const Dashboard    = lazy(() => import("./pages/Dashboard/Dashboard"));
+const CompleteSignup = lazy(() => import("./pages/CompleteSignup/CompleteSignup"));
 
 const PageLoader = () => (
   <div style={{ minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -33,7 +35,18 @@ function App() {
       apiRequest("/auth/me")
         .then((data) => { if (data?.user) setStoredUser(data.user); })
         .catch(() => {});
+      return;
     }
+
+    // No stored user yet — could just be a first-time anonymous visitor, or
+    // could be landing here right after a Google OAuth redirect (session
+    // cookie set, localStorage not yet synced). Use a plain fetch, not
+    // apiRequest, so an expected 401 for anonymous visitors doesn't trigger
+    // apiRequest's global "redirect to /login" side effect.
+    fetch(`${API_BASE_URL}/auth/me`, { credentials: "include" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => { if (data?.user) setStoredUser(data.user); })
+      .catch(() => {});
   }, []);
 
   return (
@@ -50,6 +63,8 @@ function App() {
           <Route path="/contact"           element={<Contact />} />
           <Route path="/login"             element={<Login />} />
           <Route path="/payment"           element={<Payment />} />
+          <Route path="/dashboard"         element={<Dashboard />} />
+          <Route path="/complete-signup"   element={<CompleteSignup />} />
           {/* 404 */}
           <Route path="*" element={
             <div style={{ minHeight: "80vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1rem", padding: "2rem", textAlign: "center" }}>
