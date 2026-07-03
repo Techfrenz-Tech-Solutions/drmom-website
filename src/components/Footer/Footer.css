@@ -20,10 +20,11 @@
 
 .footer__inner {
   display: grid;
-  grid-template-columns: 2.2fr 1fr 1fr 1.6fr;
-  gap: var(--gap-2xl);
-  padding-top: 8rem;
-  padding-bottom: 4rem;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+  gap: var(--gap-xl);
+  align-items: end;
+  padding-top: 10rem;
+  padding-bottom: 6rem;
 }
 
 /* ─── Brand ─── */
@@ -124,6 +125,63 @@
   font-size: 0.75rem;
 }
 
+/* ─── Payment ─── */
+.footer__col--payment {
+  padding-top: 3.5rem;
+}
+
+.footer__payment-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: var(--gap-sm);
+}
+
+.footer__payment-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: var(--gap-sm);
+}
+
+.footer__payment-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 32px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: transform var(--t-fast), border-color var(--t-fast);
+}
+
+.footer__payment-badge svg {
+  width: 48px;
+  height: 32px;
+  display: block;
+}
+
+.footer__payment-badge:hover {
+  transform: translateY(-2px);
+  border-color: var(--purple-light);
+}
+
+.footer__payment-secure {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--green-mint);
+  opacity: 0.85;
+}
+
+.footer__lock-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  color: var(--green-mint);
+}
+
 /* ─── Newsletter ─── */
 .footer__newsletter-desc {
   font-size: 0.88rem;
@@ -189,6 +247,17 @@
 }
 
 /* ─── Responsive ─── */
+@media (max-width: 1200px) {
+  .footer__inner {
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--gap-lg);
+  }
+  .footer__newsletter,
+  .footer__col:last-child {
+    grid-column: span 1;
+  }
+}
+
 @media (max-width: 1024px) {
   .footer__inner {
     grid-template-columns: 1fr 1fr;
