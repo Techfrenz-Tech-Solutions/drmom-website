@@ -134,7 +134,11 @@ const Payment = () => {
             <div className="payment-success__actions">
               <button
                 className="btn btn-primary"
-                onClick={() => navigate(classInfo ? `/classes/${classInfo.id}` : "/classes")}
+                onClick={() => navigate(
+                  classInfo?.courseSlug ? `/courses/${classInfo.courseSlug}`
+                    : classInfo ? `/classes/${classInfo.id}`
+                    : "/courses",
+                )}
               >
                 Start Learning →
               </button>
@@ -156,7 +160,10 @@ const Payment = () => {
           <span>›</span>
           {classInfo && (
             <>
-              <Link to={`/classes/${classInfo.id}`} className="payment-breadcrumb__link">
+              <Link
+                to={classInfo.courseSlug ? `/courses/${classInfo.courseSlug}` : `/classes/${classInfo.id}`}
+                className="payment-breadcrumb__link"
+              >
                 {classInfo.fullLabel}
               </Link>
               <span>›</span>

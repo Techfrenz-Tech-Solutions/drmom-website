@@ -64,7 +64,7 @@ const Home = () => {
             </p>
 
             <div className="hero__actions anim-fadeInUp delay-3">
-              <Link to="/classes" className="btn btn-primary hero__btn-primary">
+              <Link to="/courses" className="btn btn-primary hero__btn-primary">
                 Start Learning Free
               </Link>
               <Link to="/about" className="btn btn-outline">
@@ -151,8 +151,8 @@ const Home = () => {
                 age-appropriate content for every stage.
               </p>
             </div>
-            <Link to="/classes" className="btn btn-outline home-classes__view-all">
-              View All Classes →
+            <Link to="/courses" className="btn btn-outline home-classes__view-all">
+              View All Courses →
             </Link>
           </div>
 
@@ -278,7 +278,7 @@ const Home = () => {
                 favourite learning companion.
               </p>
               <div className="home-cta__actions">
-                <Link to="/classes" className="btn btn-primary">
+                <Link to="/courses" className="btn btn-primary">
                   Explore Classes Free →
                 </Link>
                 <Link to="/contact" className="btn btn-outline">

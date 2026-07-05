@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import BottomNav from "./components/BottomNav/BottomNav";
 import Footer from "./components/Footer/Footer";
@@ -15,6 +15,8 @@ const Home         = lazy(() => import("./pages/Home/Home"));
 const About        = lazy(() => import("./pages/About/About"));
 const Classes      = lazy(() => import("./pages/Classes/Classes"));
 const VideoContent = lazy(() => import("./pages/VideoContent/VideoContent"));
+const Courses      = lazy(() => import("./pages/Courses/Courses"));
+const CourseDetail = lazy(() => import("./pages/CourseDetail/CourseDetail"));
 const Contact      = lazy(() => import("./pages/Contact/Contact"));
 const Login        = lazy(() => import("./pages/Login/Login"));
 const Payment      = lazy(() => import("./pages/Payment/Payment"));
@@ -58,7 +60,12 @@ function App() {
         <Routes>
           <Route path="/"                  element={<Home />} />
           <Route path="/about"             element={<About />} />
-          <Route path="/classes"           element={<Classes />} />
+          {/* Course-first browsing is now the primary path — see Courses/CourseDetail.
+              /classes redirects there; /classes/:classId (VideoContent) stays mounted
+              and working for any existing links, it's just no longer linked from nav. */}
+          <Route path="/courses"           element={<Courses />} />
+          <Route path="/courses/:courseSlug" element={<CourseDetail />} />
+          <Route path="/classes"           element={<Navigate to="/courses" replace />} />
           <Route path="/classes/:classId"  element={<VideoContent />} />
           <Route path="/contact"           element={<Contact />} />
           <Route path="/login"             element={<Login />} />

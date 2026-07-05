@@ -25,8 +25,8 @@ const NAV_LINKS = [
         ),
     },
     {
-        to: "/classes",
-        label: "Classes",
+        to: "/courses",
+        label: "Courses",
         icon: (
             <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M4 7.5 12 3l8 4.5-8 4.5L4 7.5Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />

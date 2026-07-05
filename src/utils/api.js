@@ -51,3 +51,5 @@ export async function apiRequest(path, options = {}, _retry = false) {
 }
 
 export const getCatalog = () => apiRequest("/catalog");
+export const listCourses = () => apiRequest("/courses");
+export const getCourse = (slug) => apiRequest(`/courses/${slug}`);
