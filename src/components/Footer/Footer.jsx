@@ -69,10 +69,10 @@ const Footer = () => {
           <h4 className="footer__col-title">Platform</h4>
           <ul className="footer__links">
             {[
-              { to: "/classes", label: "All Classes" },
-              { to: "/classes", label: "LKG & UKG" },
-              { to: "/classes", label: "Grade 1–3" },
-              { to: "/classes", label: "Grade 4–5" },
+              { to: "/classes", label: "Courses" },
+              // { to: "/classes", label: "LKG & UKG" },
+              // { to: "/classes", label: "Grade 1–3" },
+              // { to: "/classes", label: "Grade 4–5" },
               { to: "/about", label: "About Us" },
             ].map(({ to, label }) => (
               <li key={label}>
@@ -103,55 +103,55 @@ const Footer = () => {
         {/* Payment */}
         <div className="footer__col footer__col--payment">
           <h4 className="footer__col-title">Payment</h4>
-          <p className="footer__payment-desc">Safe &amp; secure payments</p>
+          {/* <p className="footer__payment-desc">Safe &amp; secure payments</p> */}
           <div className="footer__payment-badges">
             {/* Visa */}
-            <span className="footer__payment-badge" aria-label="Visa">
+            {/* <span className="footer__payment-badge" aria-label="Visa">
               <svg viewBox="0 0 48 48" aria-hidden="true">
                 <rect width="48" height="48" rx="6" fill="#1A1F71"/>
                 <text x="24" y="31" textAnchor="middle" fill="#FFFFFF" fontSize="14" fontWeight="bold" fontFamily="Arial">VISA</text>
               </svg>
-            </span>
+            </span> */}
             {/* Mastercard */}
-            <span className="footer__payment-badge" aria-label="Mastercard">
+            {/* <span className="footer__payment-badge" aria-label="Mastercard">
               <svg viewBox="0 0 48 48" aria-hidden="true">
                 <rect width="48" height="48" rx="6" fill="#252525"/>
                 <circle cx="18" cy="24" r="10" fill="#EB001B"/>
                 <circle cx="30" cy="24" r="10" fill="#F79E1B"/>
                 <path d="M24 16.3a10 10 0 010 15.4A10 10 0 0124 16.3z" fill="#FF5F00"/>
               </svg>
-            </span>
+            </span> */}
             {/* UPI */}
-            <span className="footer__payment-badge" aria-label="UPI">
+            {/* <span className="footer__payment-badge" aria-label="UPI">
               <svg viewBox="0 0 48 48" aria-hidden="true">
                 <rect width="48" height="48" rx="6" fill="#FFFFFF"/>
                 <text x="24" y="20" textAnchor="middle" fill="#6B3FA0" fontSize="8" fontWeight="bold" fontFamily="Arial">UPI</text>
                 <polygon points="14,22 24,38 34,22 29,22 24,30 19,22" fill="#097939"/>
                 <polygon points="19,22 24,14 29,22" fill="#ED752E"/>
               </svg>
-            </span>
+            </span> */}
             {/* Net Banking */}
-            <span className="footer__payment-badge" aria-label="Net Banking">
+            {/* <span className="footer__payment-badge" aria-label="Net Banking">
               <svg viewBox="0 0 48 48" aria-hidden="true">
                 <rect width="48" height="48" rx="6" fill="#0066CC"/>
                 <text x="24" y="22" textAnchor="middle" fill="#FFFFFF" fontSize="7" fontWeight="bold" fontFamily="Arial">NET</text>
                 <text x="24" y="32" textAnchor="middle" fill="#FFFFFF" fontSize="7" fontWeight="bold" fontFamily="Arial">BANKING</text>
               </svg>
-            </span>
+            </span> */}
             {/* Razorpay */}
-            <span className="footer__payment-badge" aria-label="Razorpay">
+            {/* <span className="footer__payment-badge" aria-label="Razorpay">
               <svg viewBox="0 0 48 48" aria-hidden="true">
                 <rect width="48" height="48" rx="6" fill="#072654"/>
                 <text x="24" y="30" textAnchor="middle" fill="#3395FF" fontSize="8" fontWeight="bold" fontFamily="Arial">Razorpay</text>
               </svg>
-            </span>
+            </span> */}
           </div>
-          <p className="footer__payment-secure">
+          {/* <p className="footer__payment-secure">
             <svg viewBox="0 0 20 20" aria-hidden="true" className="footer__lock-icon">
               <path d="M10 1a4 4 0 00-4 4v2H5a2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V9a2 2 0 00-2-2h-1V5a4 4 0 00-4-4zm2 6V5a2 2 0 10-4 0v2h4z" fill="currentColor"/>
             </svg>
             256-bit
-          </p>
+          </p> */}
         </div>
 
         {/* Newsletter */}

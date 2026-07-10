@@ -22,7 +22,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
   gap: var(--gap-xl);
-  align-items: end;
+  align-items: start;
   padding-top: 10rem;
   padding-bottom: 6rem;
 }
@@ -54,6 +54,7 @@
 .footer__socials {
   display: flex;
   gap: var(--gap-xs);
+  margin-bottom: var(--gap-md);
 }
 
 .footer__social-link {
@@ -103,7 +104,7 @@
 .footer__links {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 10px;
 }
 
 .footer__link {
@@ -127,7 +128,7 @@
 
 /* ─── Payment ─── */
 .footer__col--payment {
-  padding-top: 3.5rem;
+  padding-top: 0;
 }
 
 .footer__payment-desc {

@@ -4,11 +4,12 @@ import Icon from "../../components/Icon/Icon";
 import "./Contact.css";
 
 const FAQS = [
-  { q: "How do I enrol my child?",        a: "Simply choose a class, pick a subscription plan, and create your child's account. You can start with free lessons immediately." },
-  { q: "Can I access content on mobile?", a: "Yes! Dr Mom 2.0 is fully responsive and works on smartphones, tablets, and desktop computers." },
-  { q: "What is the refund policy?",      a: "We offer a 7-day money-back guarantee. If you are not satisfied, contact us and we will process your refund promptly." },
-  { q: "How many devices can I use?",     a: "A single subscription allows access from up to 3 devices simultaneously." },
+  { q: "How do I enrol my child?",          a: "Simply choose a class, pick a subscription plan, and create your child's account. You can start with free lessons immediately." },
+  { q: "Can I access content on mobile?",   a: "Yes! Dr Mom 2.0 is fully responsive and works on smartphones, tablets, and desktop computers." },
+  { q: "What is the refund policy?",        a: "We offer a 7-day money-back guarantee. If you are not satisfied, contact us and we will process your refund promptly." },
+  { q: "How many devices can I use?",       a: "A single subscription allows access from up to 3 devices simultaneously." },
   { q: "Are the lessons aligned to NCERT?", a: "Yes. All content from Grade 1 onwards is aligned to the NCERT curriculum framework." },
+  { q: "How do I reset my password?",       a: "Click 'Forgot Password' on the login page and follow the instructions sent to your registered email address." },
 ];
 
 const CONTACT_INFO = [
@@ -168,16 +169,34 @@ const Contact = () => {
             </h2>
             <div className="divider" />
           </div>
-          <div className="faq-list">
-            {FAQS.map(({ q, a }, i) => (
-              <div key={i} className={`faq-item glass-panel ${openFaq === i ? "faq-item--open" : ""}`}>
-                <button className="faq-item__question" onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i}>
-                  <span>{q}</span>
-                  <span className="faq-item__chevron">{openFaq === i ? "−" : "+"}</span>
-                </button>
-                {openFaq === i && <p className="faq-item__answer">{a}</p>}
-              </div>
-            ))}
+          <div className="faq-grid">
+            {/* Left column — first 3 */}
+            <div className="faq-col">
+              {FAQS.slice(0, 3).map(({ q, a }, i) => (
+                <div key={i} className={`faq-item glass-panel ${openFaq === i ? "faq-item--open" : ""}`}>
+                  <button className="faq-item__question" onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i}>
+                    <span>{q}</span>
+                    <span className="faq-item__chevron">{openFaq === i ? "−" : "+"}</span>
+                  </button>
+                  {openFaq === i && <p className="faq-item__answer">{a}</p>}
+                </div>
+              ))}
+            </div>
+            {/* Right column — last 3 */}
+            <div className="faq-col">
+              {FAQS.slice(3).map(({ q, a }, i) => {
+                const idx = i + 3;
+                return (
+                  <div key={idx} className={`faq-item glass-panel ${openFaq === idx ? "faq-item--open" : ""}`}>
+                    <button className="faq-item__question" onClick={() => setOpenFaq(openFaq === idx ? null : idx)} aria-expanded={openFaq === idx}>
+                      <span>{q}</span>
+                      <span className="faq-item__chevron">{openFaq === idx ? "−" : "+"}</span>
+                    </button>
+                    {openFaq === idx && <p className="faq-item__answer">{a}</p>}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
