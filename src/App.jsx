@@ -22,6 +22,9 @@ const Login        = lazy(() => import("./pages/Login/Login"));
 const Payment      = lazy(() => import("./pages/Payment/Payment"));
 const Dashboard    = lazy(() => import("./pages/Dashboard/Dashboard"));
 const CompleteSignup = lazy(() => import("./pages/CompleteSignup/CompleteSignup"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy/PrivacyPolicy"));
+const TermsOfUse   = lazy(() => import("./pages/TermsOfUse/TermsOfUse"));
+const RefundPolicy = lazy(() => import("./pages/RefundPolicy/RefundPolicy"));
 
 const PageLoader = () => (
   <div style={{ minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -72,6 +75,9 @@ function App() {
           <Route path="/payment"           element={<Payment />} />
           <Route path="/dashboard"         element={<Dashboard />} />
           <Route path="/complete-signup"   element={<CompleteSignup />} />
+          <Route path="/privacy-policy"    element={<PrivacyPolicy />} />
+          <Route path="/terms-of-use"      element={<TermsOfUse />} />
+          <Route path="/refund-policy"     element={<RefundPolicy />} />
           {/* 404 */}
           <Route path="*" element={
             <div style={{ minHeight: "80vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1rem", padding: "2rem", textAlign: "center" }}>
