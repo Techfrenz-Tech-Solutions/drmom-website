@@ -1,0 +1,296 @@
+/* ════════════════════════════════
+   Privacy Policy — Unique Layout
+   Accent: Indigo / Purple
+════════════════════════════════ */
+
+/* ── Page ── */
+.policy-page {
+  min-height: 100vh;
+  background: #f4f1f9;
+  padding-top: 90px;
+}
+
+/* ── Hero ── */
+.policy-header {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a0a2e 0%, #3B1E54 45%, #6b3fa0 100%);
+  padding: 5rem 0 4rem;
+  text-align: center;
+}
+
+/* floating blobs */
+.policy-header::before {
+  content: "";
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(155,126,189,0.25) 0%, transparent 70%);
+  top: -120px; left: -80px;
+  animation: policyBlob 8s ease-in-out infinite alternate;
+}
+.policy-header::after {
+  content: "";
+  position: absolute;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,190,228,0.18) 0%, transparent 70%);
+  bottom: -80px; right: -60px;
+  animation: policyBlob 10s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes policyBlob {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, 20px) scale(1.12); }
+}
+
+.policy-header-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.policy-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 1.25rem;
+}
+
+.policy-badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #c084fc;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.75); }
+}
+
+.policy-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  line-height: 1.1;
+}
+
+.policy-subtitle {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+
+/* ── Two-column layout ── */
+.policy-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+  align-items: start;
+}
+
+/* ── Sidebar TOC ── */
+.policy-toc {
+  position: sticky;
+  top: 110px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem 1.25rem;
+  box-shadow: 0 4px 20px rgba(59,30,84,0.1);
+  border-top: 4px solid #9B7EBD;
+}
+
+.policy-toc-title {
+  font-family: var(--font-ui, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #9B7EBD;
+  margin-bottom: 1rem;
+}
+
+.policy-toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.policy-toc-list a {
+  display: block;
+  font-size: 0.82rem;
+  color: #5a4a6e;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1.4;
+}
+
+.policy-toc-list a:hover {
+  background: #f0eaf8;
+  color: #3B1E54;
+}
+
+/* ── Sections ── */
+.policy-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.policy-section {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(59,30,84,0.07);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.policy-section:hover {
+  box-shadow: 0 8px 28px rgba(59,30,84,0.13);
+  transform: translateY(-2px);
+}
+
+.policy-section-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.4rem 1.75rem;
+  background: linear-gradient(90deg, #faf7ff 0%, #ffffff 100%);
+  border-bottom: 1px solid #ede8f5;
+}
+
+.policy-section-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #3B1E54, #9B7EBD);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.policy-section h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #2d1b45;
+  margin: 0;
+}
+
+.policy-section-body {
+  padding: 1.5rem 1.75rem;
+}
+
+.policy-section h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #6b3fa0;
+  margin: 1.2rem 0 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.policy-section p {
+  color: #3d3d4e;
+  line-height: 1.85;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+.policy-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.policy-section ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: #3d3d4e;
+  line-height: 1.7;
+}
+
+.policy-section ul li::before {
+  content: "✦";
+  color: #9B7EBD;
+  font-size: 0.65rem;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.policy-section ul li strong {
+  color: #2d1b45;
+  font-weight: 600;
+}
+
+.contact-list li::before { content: "📧"; font-size: 0.9rem; margin-top: 2px; }
+.contact-list li:nth-child(2)::before { content: "📞"; }
+.contact-list li:nth-child(3)::before { content: "📍"; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .policy-layout {
+    grid-template-columns: 1fr;
+  }
+  .policy-toc {
+    position: static;
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .policy-title { font-size: 2rem; }
+  .policy-section-head { padding: 1.1rem 1.25rem; }
+  .policy-section-body { padding: 1.25rem; }
+}
+
+/* ── TOC active state ── */
+.policy-toc-list a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.policy-toc-list a.policy-toc-active {
+  background: #f0eaf8;
+  color: #3B1E54;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.policy-toc-indicator {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #9B7EBD;
+  flex-shrink: 0;
+  animation: tocDot 0.3s ease;
+}
+
+@keyframes tocDot {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
