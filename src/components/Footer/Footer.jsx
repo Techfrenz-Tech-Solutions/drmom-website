@@ -15,8 +15,20 @@ const SOCIAL_LINKS = [
   {
     label: "Instagram",
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm8 1.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm-5 1A4 4 0 008 9.5 4 4 0 0012 13.5 4 4 0 0016 9.5 4 4 0 0012 6.5zm0 2a2 2 0 110 4 2 2 0 010-4z" />
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
+        <defs>
+          <radialGradient id="ig-grad" cx="30%" cy="107%" r="150%">
+            <stop offset="0%"  stopColor="#fdf497" />
+            <stop offset="10%" stopColor="#fdf497" />
+            <stop offset="20%" stopColor="#fd5949" />
+            <stop offset="45%" stopColor="#d6249f" />
+            <stop offset="80%" stopColor="#285AEB" />
+          </radialGradient>
+        </defs>
+        <rect x="2" y="2" width="20" height="20" rx="6" ry="6" fill="url(#ig-grad)" />
+        <rect x="2" y="2" width="20" height="20" rx="6" ry="6" fill="none" stroke="none" />
+        <circle cx="12" cy="12" r="4.5" fill="none" stroke="#fff" strokeWidth="1.8" />
+        <circle cx="17.2" cy="6.8" r="1.2" fill="#fff" />
       </svg>
     ),
   },
@@ -31,8 +43,8 @@ const SOCIAL_LINKS = [
   {
     label: "Twitter",
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M22.46 6c-.77.34-1.6.56-2.46.66a4.27 4.27 0 001.88-2.35 8.49 8.49 0 01-2.7 1.03 4.24 4.24 0 00-7.2 3.86A12.03 12.03 0 013 5.16a4.24 4.24 0 001.31 5.65 4.21 4.21 0 01-1.92-.53v.05a4.24 4.24 0 003.4 4.16 4.26 4.26 0 01-1.91.07 4.24 4.24 0 003.96 2.95A8.5 8.5 0 012 19.54a12.04 12.04 0 006.52 1.91c7.83 0 12.12-6.49 12.12-12.12 0-.18 0-.35-.01-.53A8.65 8.65 0 0024 6.64a8.35 8.35 0 01-2.4.66 4.22 4.22 0 001.84-2.33" />
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
       </svg>
     ),
   },

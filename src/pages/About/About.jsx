@@ -123,11 +123,11 @@ const About = () => (
               <div className="team-card__avatar" style={{ background: bg }}>{initials}</div>
               <h4 className="team-card__name">{name}</h4>
               <p className="team-card__role">{role}</p>
-              <div className="team-card__links">
+              {/* <div className="team-card__links">
                 {["in", "tw"].map((l) => (
                   <a key={l} href="#!" className="team-card__link">{l}</a>
                 ))}
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
